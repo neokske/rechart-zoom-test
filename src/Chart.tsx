@@ -72,7 +72,7 @@ const StreamingDemo = () => {
 
   console.log("state", state);
 
-  const zoom = () => {
+  const handleZoom = () => {
     if (refAreaLeft === refAreaRight || refAreaRight === "") {
       setRefAreaLeft("");
       setRefAreaRight("");
@@ -111,6 +111,10 @@ const StreamingDemo = () => {
     setTop2("dataMin+50");
   };
 
+  const handleMouseDown = (event: any) => setRefAreaLeft(event.activeLabel);
+  const handleMouseMove = (event: any) =>
+    refAreaLeft && setRefAreaRight(event.activeLabel);
+
   return (
     <div className="highlight-bar-charts">
       <button onClick={zoomOut}>Zoom Out</button>
@@ -119,9 +123,9 @@ const StreamingDemo = () => {
         width={800}
         height={400}
         data={data}
-        onMouseDown={e => setRefAreaLeft(e.activeLabel)}
-        onMouseMove={e => refAreaLeft && setRefAreaRight(e.activeLabel)}
-        onMouseUp={zoom}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleZoom}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
